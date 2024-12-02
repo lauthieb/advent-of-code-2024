@@ -1,4 +1,4 @@
-from main_1 import calculate_total_distance
+from main_day_1_1 import calculate_total_distance
 
 
 def test_calculate_total_distance(tmp_path):

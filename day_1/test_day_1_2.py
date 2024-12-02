@@ -1,4 +1,4 @@
-from main_2 import calculate_similarity_score
+from main_day_1_2 import calculate_similarity_score
 
 
 def test_calculate_similarity_score(tmp_path):
