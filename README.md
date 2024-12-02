@@ -39,6 +39,26 @@ If you want to verify your answer via the example given in Advent of Code, you c
 pytest
 ```
 
+## Start a new day challenge
+
+Go to the root folder, then launch:
+```sh
+python3 create_day_structure.py
+```
+
+Then, for example you enter `3` when prompted, the script will generate the following structure:
+
+```
+day_3/
+├── input.txt
+├── main_day_3_1.py
+├── main_day_3_2.py
+├── test_day_3_1.py
+└── test_day_3_2.py
+```
+
+And, here we go!
+
 ## License
 
     MIT License
