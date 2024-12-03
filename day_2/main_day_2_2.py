@@ -1,3 +1,18 @@
+import sys
+import os
+
+try:
+    from utils import measure_time
+except ImportError:
+    project_root = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), ".."))
+    sys.path.insert(0, project_root)
+    from utils import measure_time
+
+CURRENT_DIR = os.path.dirname(__file__)
+INPUT_FILE = os.path.join(CURRENT_DIR, "input.txt")
+
+
 def generate_subsets(report):
     return [report[:i] + report[i + 1:] for i in range(len(report))]
 
@@ -11,6 +26,7 @@ def is_safe(levels):
     return is_increasing or is_decreasing
 
 
+@measure_time
 def calculate_safe_count(input_file):
     with open(input_file, "r") as f:
         lines = f.readlines()
@@ -31,5 +47,11 @@ def calculate_safe_count(input_file):
 
 
 if __name__ == "__main__":
-    result = calculate_safe_count("input.txt")
-    print(result)
+    try:
+        result = calculate_safe_count(INPUT_FILE)
+        print(result)
+    except Exception as e:
+        print(f"An error occured: {e}")
+        sys.exit(1)
+    else:
+        sys.exit(0)
