@@ -27,8 +27,8 @@ def count_xmas(input_file):
                 target_word,
                 start_row,
                 start_col,
-                row_increment,
-                col_increment):
+                direction):
+            row_increment, col_increment = direction
             target_length = len(target_word)
 
             for i in range(target_length):
@@ -52,13 +52,13 @@ def count_xmas(input_file):
                 ]
 
                 if match_word(
-                    "MAS", row, col, directions[0][0], directions[0][1]
+                    "MAS", row, col, directions[0]
                 ) or match_word(
-                        "SAM", row, col, directions[0][0], directions[0][1]):
+                        "SAM", row, col, directions[0]):
                     if match_word(
-                        "MAS", row + 2, col, directions[1][0], directions[1][1]
+                        "MAS", row + 2, col, directions[1]
                     ) or match_word(
-                        "SAM", row + 2, col, directions[1][0], directions[1][1]
+                        "SAM", row + 2, col, directions[1]
                     ):
                         occurrence_count += 1
         return occurrence_count

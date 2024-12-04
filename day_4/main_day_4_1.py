@@ -25,7 +25,9 @@ def count_xmas(input_file):
         target_length = len(target_word)
         occurrence_count = 0
 
-        def match_word(start_row, start_col, row_increment, col_increment):
+        def match_word(start_row, start_col, direction):
+            row_increment, col_increment = direction
+
             for i in range(target_length):
                 current_row = start_row + i * row_increment
                 current_col = start_col + i * col_increment
@@ -51,8 +53,8 @@ def count_xmas(input_file):
                     (-1, -1),  # Up-left diagonal
                     (-1, 1),  # Up-right diagonal
                 ]
-                for row_increment, col_increment in directions:
-                    if match_word(row, col, row_increment, col_increment):
+                for direction in directions:
+                    if match_word(row, col, direction):
                         occurrence_count += 1
 
         return occurrence_count
