@@ -39,6 +39,13 @@ If you want to verify your answer via the example given in Advent of Code, you c
 pytest
 ```
 
+## Execute all scripts
+
+Go to the root folder, then launch:
+```sh
+python3 execute_all_scripts.py
+```
+
 ## Start a new day challenge
 
 Go to the root folder, then launch:
