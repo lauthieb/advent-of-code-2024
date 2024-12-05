@@ -1,7 +1,7 @@
 from main_day_4_2 import count_xmas
 
 
-def test_calculate_safe_count(tmp_path):
+def test_count_xmas(tmp_path):
     input_file = tmp_path / "input.txt"
     input_data = """MMMSXXMASM
                     MSAMXMSMSA
