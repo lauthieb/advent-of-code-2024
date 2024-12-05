@@ -1,7 +1,7 @@
 from main_day_5_1 import count_middle_page_number
 
 
-def test_calculate_safe_count(tmp_path):
+def test_count_middle_page_number(tmp_path):
     input_file = tmp_path / "input.txt"
     input_data = """47|53
                     97|13
