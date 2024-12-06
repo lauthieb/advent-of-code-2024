@@ -1,7 +1,7 @@
 from main_day_6_1 import count_distinct_positions
 
 
-def test_count_xmas(tmp_path):
+def test_count_distinct_positions(tmp_path):
     input_file = tmp_path / "input.txt"
     input_data = """....#.....
                     .........#
