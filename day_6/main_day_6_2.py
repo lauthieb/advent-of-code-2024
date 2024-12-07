@@ -13,7 +13,7 @@ CURRENT_DIR = os.path.dirname(__file__)
 INPUT_FILE = os.path.join(CURRENT_DIR, "input.txt")
 
 
-# TODO: optimize this function... 40 seconds 😬⏳
+# TODO: should be optimized... ~37 seconds 😬⏳
 @measure_time
 def count_possible_obstacle_positions(input_file):
     with open(input_file, "r") as f:
@@ -35,15 +35,16 @@ def count_possible_obstacle_positions(input_file):
         num_rows = len(grid)
         num_cols = len(grid[0])
 
-        guards = []
+        guard_position = None
+        guard_direction = None
         for row in range(num_rows):
             for col in range(num_cols):
                 if grid[row][col] in "^>v<":
-                    guards.append({
-                        "position": (row, col),
-                        "direction": grid[row][col]
-                    })
-                    grid[row][col] = "."
+                    guard_position = (row, col)
+                    guard_direction = grid[row][col]
+                    break
+            if guard_position:
+                break
 
         def simulate_guard_movement(
                 grid,
@@ -93,15 +94,13 @@ def count_possible_obstacle_positions(input_file):
 
         valid_obstacle_positions = 0
         for row, col in empty_positions:
-            for guard in guards:
-                if simulate_guard_movement(
-                    grid,
-                    guard['position'],
-                    guard['direction'],
-                    (row, col)
-                ):
-                    valid_obstacle_positions += 1
-                    break
+            if simulate_guard_movement(
+                grid,
+                guard_position,
+                guard_direction,
+                (row, col)
+            ):
+                valid_obstacle_positions += 1
 
         return valid_obstacle_positions
 
