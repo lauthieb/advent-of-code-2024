@@ -1,7 +1,7 @@
 from main_day_10_1 import calculate_tailheads_score
 
 
-def test_count_distinct_positions(tmp_path):
+def test_calculate_tailheads_score(tmp_path):
     input_file = tmp_path / "input.txt"
     input_data = """89010123
                     78121874
