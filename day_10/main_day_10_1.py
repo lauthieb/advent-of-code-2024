@@ -1,6 +1,5 @@
 import sys
 import os
-from collections import deque
 
 try:
     from utils import measure_time
@@ -24,46 +23,34 @@ def calculate_tailheads_score(input_file):
             (0, -1)  # LEFT
         ]
         grid = [list(map(int, line.strip())) for line in f]
+        num_rows, num_cols = len(grid), len(grid[0])
+        score = 0
 
-        num_rows = len(grid)
-        num_cols = len(grid[0])
-        tailheads_score = 0
+        for i in range(num_rows):
+            for j in range(num_cols):
+                if grid[i][j] == 0:
+                    paths = []
+                    queue = [(i, j)]
+                    while queue:
+                        current_row_id, current_col_id = queue.pop(0)
+                        current_value = grid[current_row_id][current_col_id]
+                        next_value = current_value + 1
+                        for row_offset, col_offset in DIRECTION_OFFSETS:
+                            next_row_id, next_col_id = \
+                                current_row_id + row_offset, \
+                                current_col_id + col_offset
+                            if (
+                                0 <= next_row_id < num_rows and
+                                0 <= next_col_id < num_cols and
+                                grid[next_row_id][next_col_id] == next_value
+                            ):
+                                if next_value == 9:
+                                    paths.append((next_row_id, next_col_id))
+                                else:
+                                    queue.append((next_row_id, next_col_id))
 
-        def in_bounds(row, col):
-            return 0 <= row < num_rows and 0 <= col < num_cols
-
-        def check_trailheads(start_row, start_col):
-            visited = set()
-            queue = deque([(start_row, start_col)])
-            reachable_nines = set()
-
-            while queue:
-                row, col = queue.popleft()
-                if (row, col) in visited:
-                    continue
-                visited.add((row, col))
-
-                if grid[row][col] == 9:
-                    reachable_nines.add((row, col))
-                    continue
-
-                for row_offset, col_offset in DIRECTION_OFFSETS:
-                    next_row, next_col = row + row_offset, col + col_offset
-                    if (
-                        in_bounds(next_row, next_col)
-                        and (next_row, next_col) not in visited
-                    ):
-                        if grid[next_row][next_col] == grid[row][col] + 1:
-                            queue.append((next_row, next_col))
-
-            return len(reachable_nines)
-
-        for row in range(num_rows):
-            for col in range(num_cols):
-                if grid[row][col] == 0:
-                    tailheads_score += check_trailheads(row, col)
-
-        return tailheads_score
+                    score += len(set(paths))
+        return score
 
 
 if __name__ == "__main__":
