@@ -29,7 +29,7 @@ To launch a specific day, you can `cd` into it, then just launch it.
 
 Example with the first day (challenge 1/2):
 ```sh
-cd day_1 && python3 main_day_1_1.py
+cd day_01 && python3 main_day_1_1.py
 ```
 
 ## Test
@@ -56,7 +56,7 @@ python3 create_day_structure.py
 Then, for example you enter `3` when prompted, the script will generate the following structure:
 
 ```
-day_3/
+day_03/
 ├── input.txt
 ├── main_day_3_1.py
 ├── main_day_3_2.py
