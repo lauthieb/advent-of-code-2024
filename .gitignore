@@ -21,3 +21,7 @@ venv.bak/
 
 # Pytest
 .pytest_cache/
+
+# Draft files
+**/ex.py
+**/ex.txt

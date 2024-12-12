@@ -4,7 +4,8 @@ import os
 try:
     from utils import measure_time
 except ImportError:
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    project_root = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), ".."))
     sys.path.insert(0, project_root)
     from utils import measure_time
 
@@ -14,8 +15,6 @@ INPUT_FILE = os.path.join(CURRENT_DIR, "input.txt")
 
 @measure_time
 def count_total_calibration(input_file):
-    from itertools import product
-
     total = 0
 
     def sum_search(inputs, temp):
