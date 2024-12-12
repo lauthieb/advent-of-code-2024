@@ -4,8 +4,7 @@ import os
 try:
     from utils import measure_time
 except ImportError:
-    project_root = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), ".."))
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     sys.path.insert(0, project_root)
     from utils import measure_time
 
@@ -16,9 +15,9 @@ INPUT_FILE = os.path.join(CURRENT_DIR, "input.txt")
 def evaluate_expression(numbers, operators):
     result = numbers[0]
     for i, op in enumerate(operators):
-        if op == '+':
+        if op == "+":
             result += numbers[i + 1]
-        elif op == '*':
+        elif op == "*":
             result *= numbers[i + 1]
     return result
 
@@ -29,6 +28,17 @@ def count_total_calibration(input_file):
 
     total = 0
 
+    def sum_search(inputs, temp):
+        result = []
+        left = inputs.pop(0)
+        for value in temp:
+            result.append(left + value)
+            result.append(left * value)
+
+        if len(inputs) > 0:
+            result = sum_search(inputs=inputs, temp=result)
+        return result
+
     with open(input_file, "r") as f:
         lines = f.readlines()
 
@@ -37,13 +47,10 @@ def count_total_calibration(input_file):
         test_value = int(test_value)
         numbers = list(map(int, numbers.split()))
 
-        num_operators = len(numbers) - 1
-        operator_combinations = product("+*", repeat=num_operators)
-
-        for operators in operator_combinations:
-            if evaluate_expression(numbers, operators) == test_value:
-                total += test_value
-                break
+        temp = []
+        temp.append(numbers.pop(0))
+        if test_value in sum_search(inputs=numbers, temp=temp):
+            total += test_value
 
     return total
 
