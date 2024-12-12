@@ -12,16 +12,6 @@ CURRENT_DIR = os.path.dirname(__file__)
 INPUT_FILE = os.path.join(CURRENT_DIR, "input.txt")
 
 
-def evaluate_expression(numbers, operators):
-    result = numbers[0]
-    for i, op in enumerate(operators):
-        if op == "+":
-            result += numbers[i + 1]
-        elif op == "*":
-            result *= numbers[i + 1]
-    return result
-
-
 @measure_time
 def count_total_calibration(input_file):
     from itertools import product
