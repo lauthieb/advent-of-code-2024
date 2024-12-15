@@ -18,17 +18,6 @@ def calculate_area(region: set[tuple[int, int]]) -> int:
     return len(region)
 
 
-def calculate_perimeter(region: set[tuple[int, int]]) -> int:
-    total = 0
-    for r, c in region:
-        num_neighbors = len([
-            1 for dr, dc in ((-1, 0), (1, 0), (0, -1), (0, 1))
-            if (r + dr, c + dc) in region
-        ])
-        total += 4 - num_neighbors
-    return total
-
-
 def parse_regions(grid: list[str]) -> list[set[tuple[int, int]]]:
     num_rows = len(grid)
     num_cols = len(grid[0])
@@ -65,7 +54,43 @@ def calculate_total_fencing_cost(input_file: str):
 
     regions = parse_regions(grid)
 
-    return sum(calculate_area(r) * calculate_perimeter(r) for r in regions)
+    return sum(calculate_area(r) * calculate_sides(r) for r in regions)
+
+
+def calculate_sides(region: set[tuple[int, int]]) -> int:
+    up, down, left, right = (set() for _ in range(4))
+    for r, c in region:
+        if (r - 1, c) not in region:
+            up.add((r, c))
+        if (r + 1, c) not in region:
+            down.add((r, c))
+        if (r, c - 1) not in region:
+            left.add((r, c))
+        if (r, c + 1) not in region:
+            right.add((r, c))
+
+    count = 0
+    for (r, c) in up:
+        if (r, c) in left:
+            count += 1
+        if (r, c) in right:
+            count += 1
+        if (r - 1, c - 1) in right and (r, c) not in left:
+            count += 1
+        if (r - 1, c + 1) in left and (r, c) not in right:
+            count += 1
+
+    for (r, c) in down:
+        if (r, c) in left:
+            count += 1
+        if (r, c) in right:
+            count += 1
+        if (r + 1, c - 1) in right and (r, c) not in left:
+            count += 1
+        if (r + 1, c + 1) in left and (r, c) not in right:
+            count += 1
+
+    return count
 
 
 if __name__ == "__main__":
