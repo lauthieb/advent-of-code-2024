@@ -129,3 +129,9 @@ To determine the safest area, count the _number of robots in each quadrant_ afte
 In this example, the quadrants contain `1`, `3`, `4`, and `1` robot. Multiplying these together gives a total _safety factor_ of _`12`_.
 
 Predict the motion of the robots in your list within a space which is `101` tiles wide and `103` tiles tall. _What will the safety factor be after exactly 100 seconds have elapsed?_
+
+### Part Two
+
+During the bathroom break, someone notices that these robots seem awfully similar to ones built and used at the North Pole. If they're the same type of robots, they should have a hard-coded <span title="This puzzle was originally going to be about the motion of space rocks in a fictitious arcade game called Meteoroids, but we just had an arcade puzzle.">Easter egg</span>: very rarely, most of the robots should arrange themselves into _a picture of a Christmas tree_.
+
+_What is the fewest number of seconds that must elapse for the robots to display the Easter egg?_
