@@ -95,17 +95,28 @@ def run_chronospatial_computer(input_file):
 
     for line in lines:
         line = line.lstrip()
-        if line.startswith("Register A"):
-            registers["A"] = int(line.split(":")[1].strip())
-        elif line.startswith("Register B"):
-            registers["B"] = int(line.split(":")[1].strip())
-        elif line.startswith("Register C"):
-            registers["C"] = int(line.split(":")[1].strip())
-        elif line.startswith("Program"):
+        if line.startswith("Program"):
             program = list(map(int, line.split(":")[1].strip().split(",")))
 
-    output = execute_program(program, registers)
-    return ",".join(map(str, output))
+    registers["A"] = sum(7 * 8**i for i in range(len(program) - 1)) + 1
+    registers["B"] = 0
+    registers["C"] = 0
+
+    while True:
+        result = execute_program(program, registers.copy())
+
+        if len(result) > len(program):
+            raise ValueError("The output is too long")
+
+        if result == program:
+            return registers["A"]
+
+        add = 0
+        for i in range(len(result) - 1, -1, -1):
+            if result[i] != program[i]:
+                add = 8**i
+                registers["A"] += add
+                break
 
 
 if __name__ == "__main__":
