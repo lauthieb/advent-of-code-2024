@@ -36,40 +36,44 @@ def execute_program(program, registers):
         operand = program[instruction_pointer + 1]
 
         if opcode == 0:  # adv: Divide A by 2^combo_operand
-            combo_value = get_operand_value(operand, registers, is_combo=True)
-            registers["A"] //= 2 ** combo_value
+            combo_operand = get_operand_value(
+                operand, registers, is_combo=True)
+            registers["A"] //= 2 ** combo_operand
 
         elif opcode == 1:  # bxl: XOR bit to bit between B and literal_operand
-            literal_value = get_operand_value(
+            literal_operand = get_operand_value(
                 operand, registers, is_combo=False)
-            registers["B"] ^= literal_value
+            registers["B"] ^= literal_operand
 
         elif opcode == 2:  # bst: B takes the value combo_operand % 8
-            combo_value = get_operand_value(
+            combo_operand = get_operand_value(
                 operand, registers, is_combo=True)
-            registers["B"] = combo_value % 8
+            registers["B"] = combo_operand % 8
 
         elif opcode == 3:  # jnz: Jump if A != 0
-            literal_value = get_operand_value(
+            literal_operand = get_operand_value(
                 operand, registers, is_combo=False)
             if registers["A"] != 0:
-                instruction_pointer = literal_value
+                instruction_pointer = literal_operand
                 continue  # Don't increment the pointer
 
-        elif opcode == 4:  # bxc: XOR bit to bit between B and C
+        elif opcode == 4:  # bxc: B takes the XOR bit to bit between B and C
             registers["B"] ^= registers["C"]
 
         elif opcode == 5:  # out: Output combo_operand % 8
-            combo_value = get_operand_value(operand, registers, is_combo=True)
-            output.append(combo_value % 8)
+            combo_operand = get_operand_value(
+                operand, registers, is_combo=True)
+            output.append(combo_operand % 8)
 
         elif opcode == 6:  # bdv: Division like adv but result inside B
-            combo_value = get_operand_value(operand, registers, is_combo=True)
-            registers["B"] = registers["A"] // (2 ** combo_value)
+            combo_operand = get_operand_value(
+                operand, registers, is_combo=True)
+            registers["B"] = registers["A"] // (2 ** combo_operand)
 
         elif opcode == 7:  # cdv: Division like adv but result inside C
-            combo_value = get_operand_value(operand, registers, is_combo=True)
-            registers["C"] = registers["A"] // (2 ** combo_value)
+            combo_operand = get_operand_value(
+                operand, registers, is_combo=True)
+            registers["C"] = registers["A"] // (2 ** combo_operand)
 
         else:
             raise ValueError(f"Opcode not supported: {opcode}")
@@ -84,7 +88,7 @@ def run_chronospatial_computer(input_file):
     with open(input_file, "r") as f:
         lines = f.readlines()
 
-    registers = {"A": 0, "B": 0, "C": 0}
+    registers = {}
     program = []
 
     for line in lines:
