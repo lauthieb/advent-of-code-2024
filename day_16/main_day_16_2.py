@@ -5,7 +5,8 @@ import heapq  # Importation du module heapq
 try:
     from utils import measure_time
 except ImportError:
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    project_root = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), ".."))
     sys.path.insert(0, project_root)
     from utils import measure_time
 
