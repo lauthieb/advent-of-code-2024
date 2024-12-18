@@ -25,8 +25,8 @@ def calculate_minimum_steps(input_file, grid_size=71, corrupted_length=1024):
     with open(input_file, "r") as f:
         corrupted = [[*map(int, line.split(","))] for line in f]
         grid = [["."] * grid_size for _ in range(grid_size)]
-        for x, y in corrupted[:corrupted_length]:
-            grid[y][x] = "#"
+        for row, col in corrupted[:corrupted_length]:
+            grid[row][col] = "#"
 
         start = (0, 0)
         end = (grid_size - 1, grid_size - 1)
@@ -40,9 +40,9 @@ def calculate_minimum_steps(input_file, grid_size=71, corrupted_length=1024):
             if pos in seen:
                 continue
             seen.add(pos)
-            x, y = pos
+            row, col = pos
             for dx, dy in DIRECTIONS:
-                nx, ny = x + dx, y + dy
+                nx, ny = row + dx, col + dy
                 if (
                     0 <= nx < grid_size
                     and 0 <= ny < grid_size
