@@ -16,7 +16,7 @@ INPUT_FILE = os.path.join(CURRENT_DIR, "input.txt")
 def can_form_design(design, patterns):
     cache = {}
 
-    def helper(remaining_design):
+    def matches_design(remaining_design):
         if remaining_design in cache:
             return cache[remaining_design]
         if not remaining_design:
@@ -24,14 +24,14 @@ def can_form_design(design, patterns):
 
         for pattern in patterns:
             if remaining_design.startswith(pattern):
-                if helper(remaining_design[len(pattern):]):
+                if matches_design(remaining_design[len(pattern):]):
                     cache[remaining_design] = True
                     return True
 
         cache[remaining_design] = False
         return False
 
-    return helper(design)
+    return matches_design(design)
 
 
 @measure_time

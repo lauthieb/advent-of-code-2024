@@ -16,5 +16,5 @@ def test_count_possible_designs(tmp_path):
     input_file.write_text(input_data)
 
     result = count_possible_designs(str(input_file))
-    print('result', result)
+    print(result)
     assert result == 6
