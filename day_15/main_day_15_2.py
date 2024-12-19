@@ -28,7 +28,6 @@ GRID_MAP = {
 
 
 def find_robot(grid):
-    print(grid)
     for r, row in enumerate(grid):
         for c, val in enumerate(row):
             if val == '@':

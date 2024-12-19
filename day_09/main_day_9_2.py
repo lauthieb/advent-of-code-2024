@@ -32,9 +32,6 @@ def calculate_filesystem_checksum(input_file):
             position += digit
             is_file = not is_file
 
-        print(files)
-        print(free_spaces)
-
         checksum = 0
         for f in range(len(files))[::-1]:
             file_position, file_id, file_size = files[f]
@@ -45,8 +42,6 @@ def calculate_filesystem_checksum(input_file):
                 for i in range(10)
                 if free_spaces[i] and i >= file_size
             ]
-            print(file_position, file_id, file_size)
-            print(free_space_candidates)
             if free_space_candidates:
                 available_position, max_free_space = min(free_space_candidates)
                 if available_position < file_position:

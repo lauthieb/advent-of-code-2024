@@ -11,5 +11,5 @@ def test_run_chronospatial_computer(tmp_path):
     input_file.write_text(input_data)
 
     result = run_chronospatial_computer(str(input_file))
-    print('result', result)
+    print(result)
     assert result == "4,6,3,5,6,3,5,2,1,0"
