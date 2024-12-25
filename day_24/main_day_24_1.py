@@ -63,7 +63,7 @@ def calculate_decimal_output(wire_values):
 
 
 @measure_time
-def simulate_system(input_file, picoseconds=100):
+def simulate_system(input_file):
     with open(input_file, "r") as f:
         data = [line.strip() for line in f.readlines()]
 
